@@ -13,7 +13,7 @@
 		2F328556235047E500FA8BB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F328554235047E500FA8BB4 /* LaunchScreen.storyboard */; };
 		2FFE076523504A1E00C5F9B7 /* UIScrollView+XYRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE076023504A1E00C5F9B7 /* UIScrollView+XYRefresh.swift */; };
 		2FFE076623504A1E00C5F9B7 /* XYBallFlashRefreshHeaderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE076223504A1E00C5F9B7 /* XYBallFlashRefreshHeaderComponent.swift */; };
-		2FFE076723504A1E00C5F9B7 /* XYRefersh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE076323504A1E00C5F9B7 /* XYRefersh.swift */; };
+		2FFE076723504A1E00C5F9B7 /* XYRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE076323504A1E00C5F9B7 /* XYRefreshControl.swift */; };
 		2FFE076823504A1E00C5F9B7 /* XYRefreshComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE076423504A1E00C5F9B7 /* XYRefreshComponent.swift */; };
 		2FFE076A23504A5200C5F9B7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE076923504A5200C5F9B7 /* ViewController.swift */; };
 /* End PBXBuildFile section */
@@ -27,7 +27,7 @@
 		2F328557235047E500FA8BB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FFE076023504A1E00C5F9B7 /* UIScrollView+XYRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+XYRefresh.swift"; sourceTree = "<group>"; };
 		2FFE076223504A1E00C5F9B7 /* XYBallFlashRefreshHeaderComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYBallFlashRefreshHeaderComponent.swift; sourceTree = "<group>"; };
-		2FFE076323504A1E00C5F9B7 /* XYRefersh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYRefersh.swift; sourceTree = "<group>"; };
+		2FFE076323504A1E00C5F9B7 /* XYRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYRefreshControl.swift; sourceTree = "<group>"; };
 		2FFE076423504A1E00C5F9B7 /* XYRefreshComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYRefreshComponent.swift; sourceTree = "<group>"; };
 		2FFE076923504A5200C5F9B7 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,7 +62,7 @@
 		2F32854A235047E300FA8BB4 /* xyrefresh */ = {
 			isa = PBXGroup;
 			children = (
-				2FFE075F23504A1E00C5F9B7 /* xyrefresh */,
+				2FFE075F23504A1E00C5F9B7 /* XYRefreshControl */,
 				2F32854B235047E300FA8BB4 /* AppDelegate.swift */,
 				2FFE076923504A5200C5F9B7 /* ViewController.swift */,
 				2F32854F235047E300FA8BB4 /* Main.storyboard */,
@@ -73,16 +73,16 @@
 			path = xyrefresh;
 			sourceTree = "<group>";
 		};
-		2FFE075F23504A1E00C5F9B7 /* xyrefresh */ = {
+		2FFE075F23504A1E00C5F9B7 /* XYRefreshControl */ = {
 			isa = PBXGroup;
 			children = (
 				2FFE076023504A1E00C5F9B7 /* UIScrollView+XYRefresh.swift */,
 				2FFE076123504A1E00C5F9B7 /* XYHeaderComponent */,
-				2FFE076323504A1E00C5F9B7 /* XYRefersh.swift */,
+				2FFE076323504A1E00C5F9B7 /* XYRefreshControl.swift */,
 				2FFE076423504A1E00C5F9B7 /* XYRefreshComponent.swift */,
 			);
-			name = xyrefresh;
-			path = ../../xyrefresh;
+			name = XYRefreshControl;
+			path = ../../XYRefreshControl;
 			sourceTree = "<group>";
 		};
 		2FFE076123504A1E00C5F9B7 /* XYHeaderComponent */ = {
@@ -166,7 +166,7 @@
 			files = (
 				2FFE076A23504A5200C5F9B7 /* ViewController.swift in Sources */,
 				2FFE076523504A1E00C5F9B7 /* UIScrollView+XYRefresh.swift in Sources */,
-				2FFE076723504A1E00C5F9B7 /* XYRefersh.swift in Sources */,
+				2FFE076723504A1E00C5F9B7 /* XYRefreshControl.swift in Sources */,
 				2F32854C235047E300FA8BB4 /* AppDelegate.swift in Sources */,
 				2FFE076823504A1E00C5F9B7 /* XYRefreshComponent.swift in Sources */,
 				2FFE076623504A1E00C5F9B7 /* XYBallFlashRefreshHeaderComponent.swift in Sources */,

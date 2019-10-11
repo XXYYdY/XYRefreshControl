@@ -10,7 +10,7 @@ import UIKit
 
 //MARK:-------Basic Refresh
 
-class XYRefresh: UIView {
+class XYRefreshControl: UIView {
     
     static var context = "XYRefreshKVOContext"
     
@@ -58,8 +58,8 @@ class XYRefresh: UIView {
         super.willMove(toSuperview: newSuperview)
         guard let scrollView = newSuperview as? UIScrollView else {return}
         self.scrollView = scrollView
-        scrollView.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: &XYRefresh.context)
-        scrollView.addObserver(self, forKeyPath: "contentInset", options: NSKeyValueObservingOptions.new, context: &XYRefresh.context)
+        scrollView.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: &XYRefreshControl.context)
+        scrollView.addObserver(self, forKeyPath: "contentInset", options: NSKeyValueObservingOptions.new, context: &XYRefreshControl.context)
     }
     
     deinit {
@@ -68,7 +68,7 @@ class XYRefresh: UIView {
     }
     
     internal override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if context == &XYRefresh.context {
+        if context == &XYRefreshControl.context {
             if keyPath == "contentOffset" {
                 self.scrollViewContentOffsetChanged(forKeyPath: keyPath, of: object, change: change, context: context)
             }
@@ -111,7 +111,7 @@ extension XYRefreshState {
 }
 
 
-class XYRefreshHeader: XYRefresh {
+class XYRefreshHeader: XYRefreshControl {
     
     enum Model {
         case follow //跟随 (类似于mjrefresh绝大部分跟随效果)
@@ -335,7 +335,7 @@ class XYRefreshHeader: XYRefresh {
     }
 }
 
-class XYRefreshFooter: XYRefresh {
+class XYRefreshFooter: XYRefreshControl {
     var component: XYRefershFooterComponentType?
     
     override var state: XYRefreshState {
