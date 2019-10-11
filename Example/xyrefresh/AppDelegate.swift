@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  XYRefreshDemo
+//  xyrefresh
 //
-//  Created by yang on 2019/10/10.
+//  Created by yang on 2019/10/11.
 //  Copyright © 2019 yang. All rights reserved.
 //
 
