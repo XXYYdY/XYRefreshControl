@@ -420,17 +420,22 @@ public class XYRefreshFooter: XYRefreshControl {
             let inset = scrollView.contentInset
             let maxY = -(scrollView.contentInset.top + self.triggerHeight)
             let offsetY = contentOffset.y
-            
+            var safeAreaInsetTop: CGFloat = 0.0
+            if #available(iOS 11, *) {
+                if scrollView.contentInsetAdjustmentBehavior != .never {
+                    safeAreaInsetTop = scrollView.safeAreaInsets.top
+                }
+            }
             var newFrame = self.frame
             newFrame.origin.y = scrollView.contentSize.height
             self.frame = newFrame
             
             //正在刷新 || 没有更多数据 || 下拉操作 ||
             if (self.state == .refreshing) || (self.state == .noMoreData) {return}
-            if (offsetY + scrollView.contentInset.top <= 0) { self.state = .normal; return }
+            if (offsetY + scrollView.contentInset.top + safeAreaInsetTop <= 0) { self.state = .normal; return }
             if scrollView.isDragging {
                 //内容超过一个屏幕
-                if scrollView.contentInset.top + scrollView.contentSize.height + scrollView.contentInset.bottom >= scrollView.bounds.size.height {
+                if scrollView.contentInset.top + safeAreaInsetTop + scrollView.contentSize.height + scrollView.contentInset.bottom >= scrollView.bounds.size.height {
                     let boundaryOffsetY = scrollView.contentSize.height + scrollView.contentInset.bottom + self.triggerHeight - scrollView.bounds.size.height
                     if offsetY >= boundaryOffsetY && self.state == .normal {
                         //开始上拉了 松手刷新
@@ -441,8 +446,8 @@ public class XYRefreshFooter: XYRefreshControl {
                     }
                 }else {
                     //内容在一个屏幕内
-                    print("上拉-------\(offsetY + scrollView.contentInset.top)")
-                    if (offsetY + scrollView.contentInset.top > self.triggerHeight / 2.0) {
+                    print("上拉-------\(offsetY + scrollView.contentInset.top + safeAreaInsetTop)")
+                    if (offsetY + scrollView.contentInset.top + safeAreaInsetTop > self.triggerHeight / 2.0) {
                         print("内容在一个屏幕内")
                         self.state = .willRefresh
                     }else {
