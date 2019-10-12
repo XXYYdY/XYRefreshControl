@@ -45,7 +45,7 @@ public class XYBasicRefershHeaderComponent:UIView, XYRefershHeaderComponentType 
     public var refreshingHeight: CGFloat = 50.0
     
     public lazy var juhua: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView()
+        let view = UIActivityIndicatorView.init(style: .gray)
         view.tintColor = UIColor.gray
         view.startAnimating()
         return view
@@ -141,8 +141,7 @@ public class XYBasicRefershFooterComponent: UIView, XYRefershFooterComponentType
     }
     
     public lazy var juhua: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView()
-        view.tintColor = UIColor.gray
+        let view = UIActivityIndicatorView.init(style: .gray)
         view.startAnimating()
         self.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
