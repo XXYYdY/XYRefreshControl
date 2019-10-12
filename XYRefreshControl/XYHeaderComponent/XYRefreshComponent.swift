@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 //MARK:-------Refresh Component
-protocol XYRefreshComponentType {
+public protocol XYRefreshComponentType {
     var view: UIView { get }
     ///刷新时控件的高度
     var refreshingHeight: CGFloat { get }
@@ -21,14 +21,14 @@ protocol XYRefreshComponentType {
 }
 
 //MARK:-------Header Refresh Component
-protocol XYRefershHeaderComponentType: XYRefreshComponentType {
+public protocol XYRefershHeaderComponentType: XYRefreshComponentType {
     func stateNormal(state: XYRefreshState)
     func stateWillRefresh(state: XYRefreshState)
     func stateRefreshing(state: XYRefreshState)
 }
 
 //MARK:-------Footer Refresh Component
-protocol XYRefershFooterComponentType: XYRefreshComponentType {
+public protocol XYRefershFooterComponentType: XYRefreshComponentType {
     func stateNormal(state: XYRefreshState)
     func stateWillRefresh(state: XYRefreshState)
     func stateRefreshing(state: XYRefreshState)
@@ -36,29 +36,29 @@ protocol XYRefershFooterComponentType: XYRefreshComponentType {
 }
 
 //MARK:-------implementation example -- basic header
-class XYBasicRefershHeaderComponent:UIView, XYRefershHeaderComponentType {
+public class XYBasicRefershHeaderComponent:UIView, XYRefershHeaderComponentType {
     
-    var triggerHeight: CGFloat = 100.0
+    public var triggerHeight: CGFloat = 100.0
     
-    var view: UIView { return self}
+    public var view: UIView { return self}
     
-    var refreshingHeight: CGFloat = 50.0
+    public var refreshingHeight: CGFloat = 50.0
     
-    lazy var juhua: UIActivityIndicatorView = {
+    public lazy var juhua: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
         view.tintColor = UIColor.gray
         view.startAnimating()
         return view
     }()
     
-    lazy var title: UILabel = {
+    public lazy var title: UILabel = {
         let label = UILabel.init()
         label.textColor = UIColor.lightGray
         label.font = UIFont.systemFont(ofSize: 14.0)
         return label
     }()
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: CGRect.init(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: refreshingHeight))
 //        self.backgroundColor = UIColor.clear
 //        self.backgroundColor = UIColor.red
@@ -74,18 +74,18 @@ class XYBasicRefershHeaderComponent:UIView, XYRefershHeaderComponentType {
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func stateNormal(state: XYRefreshState) {
+    public func stateNormal(state: XYRefreshState) {
         print("header 下拉刷新")
         self.title.text = "下拉刷新"
         self.juhua.isHidden = true
 //        self.juhua.isHidden = false
     }
     
-    func stateWillRefresh(state: XYRefreshState) {
+    public func stateWillRefresh(state: XYRefreshState) {
         print("header 松开刷新")
         self.title.text = "松开刷新"
         self.juhua.isHidden = true
@@ -93,54 +93,54 @@ class XYBasicRefershHeaderComponent:UIView, XYRefershHeaderComponentType {
         AudioServicesPlaySystemSound(1519)
     }
     
-    func stateRefreshing(state: XYRefreshState) {
+    public func stateRefreshing(state: XYRefreshState) {
         print("header 正在刷新数据")
         self.title.text = ""
         self.juhua.isHidden = false
     }
     
-    func component(state: XYRefreshState, progress: CGFloat) {
+    public func component(state: XYRefreshState, progress: CGFloat) {
         print("state: \(state), progress: \(progress)")
     }
     
 }
 
 //MARK:-------implementation example -- basic footer
-class XYBasicRefershFooterComponent: UIView, XYRefershFooterComponentType {
+public class XYBasicRefershFooterComponent: UIView, XYRefershFooterComponentType {
     
-    var triggerHeight: CGFloat = 0.0
+    public var triggerHeight: CGFloat = 0.0
     
-    var view: UIView { return self}
+    public var view: UIView { return self}
     
-    func stateNormal(state: XYRefreshState) {
+    public func stateNormal(state: XYRefreshState) {
         print("footer 上拉刷新")
         self.juhua.isHidden = true
         self.noMoreDataView.isHidden = true
     }
     
-    func stateWillRefresh(state: XYRefreshState) {
+    public func stateWillRefresh(state: XYRefreshState) {
         print("footer 松开刷新")
         self.juhua.isHidden = false
         self.noMoreDataView.isHidden = true
     }
     
-    func stateRefreshing(state: XYRefreshState) {
+    public func stateRefreshing(state: XYRefreshState) {
         print("footer 正在刷新数据")
         self.juhua.isHidden = false
         self.noMoreDataView.isHidden = true
     }
     
-    func stateNoMoreData(state: XYRefreshState) {
+    public func stateNoMoreData(state: XYRefreshState) {
         print("footer 没有更多数据")
         self.juhua.isHidden = true
         self.noMoreDataView.isHidden = false
     }
     
-    func component(state: XYRefreshState, progress: CGFloat) {
+    public func component(state: XYRefreshState, progress: CGFloat) {
         print("state: \(state), progress: \(progress)")
     }
     
-    lazy var juhua: UIActivityIndicatorView = {
+    public lazy var juhua: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
         view.tintColor = UIColor.gray
         view.startAnimating()
@@ -152,7 +152,7 @@ class XYBasicRefershFooterComponent: UIView, XYRefershFooterComponentType {
         return view
     }()
     
-    lazy var noMoreDataView: UIView = {
+    public lazy var noMoreDataView: UIView = {
         let view = UIView.init()
         let leftLine = UIView.init()
         leftLine.backgroundColor = UIColor.lightGray
@@ -184,15 +184,15 @@ class XYBasicRefershFooterComponent: UIView, XYRefershFooterComponentType {
         return view
     }()
     
-    var refreshingHeight: CGFloat = 40.0
+    public var refreshingHeight: CGFloat = 40.0
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: CGRect.init(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: refreshingHeight))
         self.backgroundColor = UIColor.clear
 //        self.backgroundColor = UIColor.red
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

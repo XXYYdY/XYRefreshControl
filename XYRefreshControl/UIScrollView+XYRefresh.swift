@@ -11,7 +11,7 @@ import UIKit
 let xyHeaderID = UnsafeRawPointer.init(bitPattern: "xyHeaderID".hashValue)!
 let xyFooterID = UnsafeRawPointer.init(bitPattern: "xyFooterID".hashValue)!
 
-extension UIScrollView {
+public extension UIScrollView {
     var xy_header: XYRefreshHeader? {
         set {
             if newValue != nil {

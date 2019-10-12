@@ -10,21 +10,21 @@ import UIKit
 
 //MARK:-------Basic Refresh
 
-class XYRefreshControl: UIView {
+ public class XYRefreshControl: UIView {
     
-    static var context = "XYRefreshKVOContext"
+    public static var context = "XYRefreshKVOContext"
     
-    var componentView: UIView?
+    public var componentView: UIView?
     
-    var state: XYRefreshState = .normal
+    public var state: XYRefreshState = .normal
     
-    var triggerHeight: CGFloat = 0.0
+    public var triggerHeight: CGFloat = 0.0
     
-    var scrollView: UIScrollView?
+    public var scrollView: UIScrollView?
     
-    var action: (() -> ())?
+    public var action: (() -> ())?
     
-    init(componentView: UIView, action: @escaping (() -> ())) {
+    public init(componentView: UIView, action: @escaping (() -> ())) {
         let height = componentView.bounds.size.height
         super.init(frame: CGRect.init(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: height))
         self.componentView = componentView
@@ -50,11 +50,11 @@ class XYRefreshControl: UIView {
 //        self.backgroundColor = UIColor.green
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func willMove(toSuperview newSuperview: UIView?) {
+    override public func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         guard let scrollView = newSuperview as? UIScrollView else {return}
         self.scrollView = scrollView
@@ -67,7 +67,7 @@ class XYRefreshControl: UIView {
         self.removeObserver(self, forKeyPath: "contentInset")
     }
     
-    internal override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if context == &XYRefreshControl.context {
             if keyPath == "contentOffset" {
                 self.scrollViewContentOffsetChanged(forKeyPath: keyPath, of: object, change: change, context: context)
@@ -79,19 +79,19 @@ class XYRefreshControl: UIView {
         }
     }
     
-    func scrollViewContentOffsetChanged(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    public func scrollViewContentOffsetChanged(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
     }
     
-    func scrollViewContentInsetChanged(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    public func scrollViewContentInsetChanged(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
     }
     
 }
 
-protocol XYRefreshStateType {}
+public protocol XYRefreshStateType {}
 
-enum XYRefreshState: XYRefreshStateType {
+public enum XYRefreshState: XYRefreshStateType {
     /// 正常状态
     case normal
     /// 即将刷新
@@ -111,19 +111,19 @@ extension XYRefreshState {
 }
 
 
-class XYRefreshHeader: XYRefreshControl {
+public class XYRefreshHeader: XYRefreshControl {
     
-    enum Model {
+    public enum Model {
         case follow //跟随 (类似于mjrefresh绝大部分跟随效果)
         case onlyRefreshingSuck //只在刷新状态先吸顶(下拉的时候跟随，刷新的时候吸顶)
         case alawaysSuck //不管什么情况下都吸顶(类似于UIRefreshControl)
     }
     
-    var component: XYRefershHeaderComponentType?
+    public var component: XYRefershHeaderComponentType?
     
-    var model: Model = .follow
+    public var model: Model = .follow
     
-    override var state: XYRefreshState {
+    public override var state: XYRefreshState {
         didSet {
             switch self.state {
             case .normal:
@@ -169,7 +169,7 @@ class XYRefreshHeader: XYRefreshControl {
         }
     }
     
-    init(component: XYRefershHeaderComponentType = XYBasicRefershHeaderComponent.init(), model: Model = Model.follow, action: @escaping (() -> ())) {
+    public init(component: XYRefershHeaderComponentType = XYBasicRefershHeaderComponent.init(), model: Model = Model.follow, action: @escaping (() -> ())) {
         super.init(componentView: component.view, action: action)
         self.component = component
         self.triggerHeight = component.triggerHeight
@@ -177,11 +177,11 @@ class XYRefreshHeader: XYRefreshControl {
         component.stateNormal(state: .normal)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func willMove(toSuperview newSuperview: UIView?) {
+    override public func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         guard let scrollView = newSuperview as? UIScrollView else { return }
         // normal 在contentSize头部
@@ -190,7 +190,7 @@ class XYRefreshHeader: XYRefreshControl {
         self.frame = newFrame
     }
     
-    override func scrollViewContentOffsetChanged(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override public func scrollViewContentOffsetChanged(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard let scrollView = self.scrollView else { return }
         let contentOffset = scrollView.contentOffset
         let inset = scrollView.contentInset
@@ -316,29 +316,29 @@ class XYRefreshHeader: XYRefreshControl {
 //        }
 //    }
 
-    func initState() {
+    public func initState() {
         self.state = .normal
     }
     
-    func startRefreshing() {
+    public func startRefreshing() {
         self.state = .refreshing
     }
     
-    func endRefreshing() {
+    public func endRefreshing() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
             self.state = .normal
         }
     }
     
-    func isRefreshing() -> Bool {
+    public func isRefreshing() -> Bool {
         return self.state == .refreshing
     }
 }
 
-class XYRefreshFooter: XYRefreshControl {
+public class XYRefreshFooter: XYRefreshControl {
     var component: XYRefershFooterComponentType?
     
-    override var state: XYRefreshState {
+    override public var state: XYRefreshState {
         didSet {
             if self.state == oldValue { return }
             switch self.state {
@@ -388,7 +388,7 @@ class XYRefreshFooter: XYRefreshControl {
         }
     }
     
-    init(component: XYRefershFooterComponentType = XYBasicRefershFooterComponent.init(), action: @escaping (() -> ())) {
+    public init(component: XYRefershFooterComponentType = XYBasicRefershFooterComponent.init(), action: @escaping (() -> ())) {
         super.init(componentView: component.view, action: action)
         self.triggerHeight = component.triggerHeight
         self.component = component
@@ -398,7 +398,7 @@ class XYRefreshFooter: XYRefreshControl {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func willMove(toSuperview newSuperview: UIView?) {
+    override public func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         guard let scrollView = newSuperview as? UIScrollView else { return }
         var newFrame = self.frame
@@ -406,14 +406,14 @@ class XYRefreshFooter: XYRefreshControl {
         self.frame = newFrame
     }
     
-    func commitInit() {
+    public func commitInit() {
         guard let componentView = self.component as? UIView else {return}
         componentView.frame = self.bounds
         self.addSubview(componentView)
     }
     
     
-    override func scrollViewContentOffsetChanged(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override public func scrollViewContentOffsetChanged(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "contentOffset" {
             guard let scrollView = self.scrollView else { return }
             let contentOffset = scrollView.contentOffset
@@ -457,39 +457,27 @@ class XYRefreshFooter: XYRefreshControl {
         }
     }
     
-    func initState() {
+    public func initState() {
         self.state = .normal
     }
     
-    func startRefreshing() {
+    public func startRefreshing() {
         self.state = .refreshing
     }
     
-    func endRefreshing() {
+    public func endRefreshing() {
         self.state = .normal
     }
     
-    func resetNoMoreData() {
+    public func resetNoMoreData() {
         self.state = .normal
     }
     
-    func endRefreshingWithNoMoreData() {
+    public func endRefreshingWithNoMoreData() {
         self.state = .noMoreData
     }
     
-    func isRefreshing() -> Bool {
+    public func isRefreshing() -> Bool {
         return self.state == .refreshing
-    }
-}
-
-//吸顶HeaderRefresh
-class XYSuckHeaderRefresh: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
