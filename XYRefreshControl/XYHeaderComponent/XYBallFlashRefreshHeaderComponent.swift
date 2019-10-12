@@ -90,7 +90,7 @@ public class XYBallFlashRefreshHeaderComponent: UIView, XYRefershHeaderComponent
             alphaAnimation.values = [1, 0.2, 1]
             let animationGroup = CAAnimationGroup.init()
             animationGroup.animations = [scaleAnimation, alphaAnimation]
-            animationGroup.timingFunction = CAMediaTimingFunction(name: .linear)
+//            animationGroup.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.init(rawValue: "linear"))
             animationGroup.duration = duration
             animationGroup.repeatCount = HUGE
             animationGroup.beginTime = beginTime + beginTimes[1]
